@@ -1,0 +1,86 @@
+(defwindow basic-colored
+           :monitor 0
+	   :geometry (geometry :x "0%"
+	                       :y "0%"
+	                       :width "100%"
+	       			       :anchor "top center")
+	   :stacking "fg"
+	   :exclusive true
+  (basic-colored))
+
+(defwidget basic-colored []
+  (centerbox :class "basic-colored" :orientation "h"
+    (basic-colored-start)
+    (basic-colored-clock-time)
+    (basic-colored-end)))
+
+(defwidget basic-colored-start []
+  (box :class "basic-colored-start"
+       :orientation "h"
+       :space-evenly false
+       :halign "start"
+       :valign "center"
+       :spacing 10
+  (basic-colored-launchpad)
+  (basic-colored-workspaces)))
+
+(defwidget basic-colored-end []
+  (box :class "basic-colored-end"
+       :orientation "h"
+       :space-evenly false
+       :halign "end"
+       :valign "center"
+       :spacing 10
+  (basic-colored-volume)
+  (basic-colored-clock-date)
+  (basic-colored-quit))) 
+
+(defwidget basic-colored-clock-date []
+  (box :orientation "h"
+       :space-evenly false
+       :spacing 10
+       :valign "center"
+       :class "basic-colored-clock-date basic-bg"
+    (label :class "basic-colored-icon" :text "")
+    (label :text "${basic-clock-date}")))
+
+(defwidget basic-colored-clock-time []
+  (box :orientation "h"
+       :space-evenly false
+       :spacing 10
+       :valign "center"
+       :class "basic-colored-clock-time basic-bg"
+    (label :class "basic-colored-icon" :text "󰥔")
+    (label :text "${basic-clock-time}")))
+
+(defwidget basic-colored-quit []
+  (button :class "basic-colored-icon basic-colored-quit basic-bg"
+    :onclick "hyprctl dispatch quit" "⏻"))
+
+(defwidget basic-colored-launchpad []
+  (button :class "basic-colored-icon basic-colored-launchpad basic-bg" 
+          :onclick "" "󰣇"))
+
+(defwidget basic-colored-volume []
+  (box :space-evenly true
+       :class "basic-colored-volume basic-bg"
+       :orientation "h"
+       :space-evenly false
+       :valign "center"
+       :spacing 10
+    (label :class "basic-colored-icon" :text "󰕾")
+    (label :text "${volume}%")))
+
+(defwidget basic-colored-workspaces []
+  (eventbox :onscroll "bash ~/.config/eww/scripts/set-active-workspace.sh {} ${current-workspace}"
+    (box :space-evenly true
+         :class "basic-colored-icon basic-bg basic-colored-workspaces"
+         :orientation "h"
+         :space-evenly true
+         :halign "end"
+         :valign "center"
+         :spacing 16
+      (for workspace in workspaces
+        (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
+          (box :class "basic-colored-workspace ${workspace.id == current-workspace ? "current" : ""}"
+            (label :text "${workspace.name}")))))))

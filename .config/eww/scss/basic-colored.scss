@@ -1,0 +1,49 @@
+.basic-colored {
+  background-color: $background;
+  color: $foreground;
+  padding: 7px 16px;
+  font-family: 'Sarasa Term SC Nerd';
+}
+
+.basic-colored-launchpad {
+  margin-right: 10px;
+  background-color: $mocha-blue;
+  color: $background;
+}
+
+.basic-colored-bg {
+  background: $background-lighter;
+  padding: 2px 16px;
+  border-radius: 10px;
+}
+
+.basic-colored-icon {
+	font-size: 1.5rem;
+}
+
+.basic-colored-workspace.current {
+  background-color: $foreground;
+  color: $background;
+  padding: 0 10px;
+  border-radius: 16px;
+}
+
+.basic-colored-volume {
+	color: $color0;
+	background-color: $mocha-peach;
+}
+
+.basic-colored-clock-date {
+	color: $color0;
+	background-color: $mocha-red;
+}
+
+.basic-colored-clock-time {
+	color: $color0;
+	background-color: $mocha-lavender;
+}
+
+.basic-colored-quit {
+	color: $background;
+	background-color: $mocha-text;
+}

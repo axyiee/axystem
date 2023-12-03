@@ -1,0 +1,8 @@
+(deflisten workspaces :initial "[]" "bash ~/.config/eww/scripts/get-workspaces.sh")
+(deflisten current-workspace :initial "1" "bash ~/.config/eww/scripts/get-active-workspace.sh")
+(defpoll volume :interval "1s" `bash ~/.config/eww/scripts/get-volume.sh`)
+(deflisten os "bash ~/.config/eww/scripts/os.sh")
+
+(include "./yuck/utopie-vleft.yuck")
+(include "./yuck/basic.yuck")
+(include "./yuck/basic-colored.yuck")

@@ -1,0 +1,22 @@
+[colors]
+foreground = BFDDC9
+background = 0A0A0F
+regular0 = 0A0A0F
+regular1 = 604E3F
+regular2 = 335766
+regular3 = 396057
+regular4 = 5F5F32
+regular5 = 6A6A6A
+regular6 = 36774C
+regular7 = 9BC6AA
+bright0 = 6C8A77
+bright1 = 806955
+bright2 = 447588
+bright3 = 4C8174
+bright4 = 7F7F43
+bright5 = 8E8E8E
+bright6 = 499F66
+bright7 = 7C9E88
+
+[cursor]
+color = 604E3F BFDDC9

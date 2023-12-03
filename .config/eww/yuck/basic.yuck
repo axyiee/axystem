@@ -1,0 +1,91 @@
+(defwindow basic
+           :monitor 0
+	   :geometry (geometry :x "0%"
+	                       :y "0%"
+	                       :width "100%"
+	       			       :anchor "top center")
+	   :stacking "fg"
+	   :exclusive true
+  (basic))
+
+(defwidget basic []
+  (centerbox :class "basic" :orientation "h"
+    (basic-start)
+    (basic-clock-time)
+    (basic-end)))
+
+(defwidget basic-start []
+  (box :class "basic-start"
+       :orientation "h"
+       :space-evenly false
+       :halign "start"
+       :valign "center"
+       :spacing 10
+  (basic-launchpad)
+  (basic-workspaces)))
+
+(defwidget basic-end []
+  (box :class "basic-end"
+       :orientation "h"
+       :space-evenly false
+       :halign "end"
+       :valign "center"
+       :spacing 10
+  (basic-volume)
+  (basic-clock-date)
+  (basic-quit)))
+  
+(defpoll basic-clock-time :interval "10s"
+  `~/.config/eww/scripts/clock.sh time`)
+  
+(defpoll basic-clock-date :interval "10s"
+  `~/.config/eww/scripts/clock.sh date`)
+
+(defwidget basic-clock-date []
+  (box :orientation "h"
+       :space-evenly false
+       :spacing 10
+       :valign "center"
+       :class "basic-clock-date basic-bg"
+    (label :class "basic-icon" :text "")
+    (label :text "${basic-clock-date}")))
+
+(defwidget basic-clock-time []
+  (box :orientation "h"
+       :space-evenly false
+       :spacing 10
+       :valign "center"
+       :class "basic-clock-time basic-bg"
+    (label :class "basic-icon" :text "󰥔")
+    (label :text "${basic-clock-time}")))
+
+(defwidget basic-quit []
+  (button :class "basic-icon basic-quit basic-bg"
+    :onclick "hyprctl dispatch quit" "⏻"))
+
+(defwidget basic-launchpad []
+  (button :onclick "sleep 0.1 & fuzzel" :class "basic-icon basic-launchpad basic-bg" "${os}"))
+
+(defwidget basic-volume []
+  (box :space-evenly true
+       :class "basic-volume basic-bg"
+       :orientation "h"
+       :space-evenly false
+       :valign "center"
+       :spacing 10
+    (label :class "basic-icon" :text "󰕾")
+    (label :text "${volume}%")))
+
+(defwidget basic-workspaces []
+  (eventbox :onscroll "bash ~/.config/eww/scripts/set-active-workspace.sh {} ${current-workspace}"
+    (box :space-evenly true
+         :class "basic-icon basic-bg basic-workspaces"
+         :orientation "h"
+         :space-evenly true
+         :halign "end"
+         :valign "center"
+         :spacing 8
+      (for workspace in workspaces
+        (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
+          (box :class "basic-workspace ${workspace.id == current-workspace ? "current" : ""}"
+            (label :text "${workspace.name}")))))))

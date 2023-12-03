@@ -1,0 +1,72 @@
+.utopie-vleft {
+  background-color: $background;
+  padding: 20px 10px;
+  color: $foreground;
+  font-family: 'Sarasa Term SC Nerd';
+  border-radius: 16px;
+}
+
+.utopie-vleft-bg {
+  padding: 5px 16px;
+  background: $background-lighter;
+  border-radius: 10px;
+}
+
+.utopie-vleft-bg-red {
+	background-color: $red;
+	color: $background;
+}
+
+.utopie-vleft-bg-crystal-blue {
+	background-color: $crystal-blue;
+	color: $background;
+}
+
+.utopie-vleft-icon {
+	font-size: 2em;
+}
+
+.utopie-vleft-clock {
+	padding: 16px;
+}
+
+.utopie-vleft-workspaces {
+	padding: 10px 6px;
+}
+
+.utopie-vleft-workspace.current {
+  background-color: $foreground;
+  color: $background;
+  padding: 0 10px;
+  border-radius: 16px;
+}
+
+.utopie-vleft-clock {
+	font-size: 1.25rem;
+}
+
+.utopie-vleft-clock-hour {
+	color: $green;
+}
+
+.utopie-vleft-clock-min {
+	color: $yellow;
+}
+
+.utopie-vleft-double-element .green {
+	background-color: $green;
+	color: $background;
+}
+
+.utopie-vleft-double-element .first {
+  padding: 5px 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.utopie-vleft-double-element .second {
+	padding: 10px;
+	background-color: $background-lighter;
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+}

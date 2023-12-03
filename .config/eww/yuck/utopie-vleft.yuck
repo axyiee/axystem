@@ -1,0 +1,85 @@
+(defwindow utopie-vleft
+           :monitor 0
+	   :geometry (geometry :x "10px"
+	                       :y "20px"
+	                       :height "96%"
+	       			       :anchor "left center")
+	   :stacking "fg"
+	   :exclusive true
+  (utopie-vleft))
+
+(defwidget utopie-vleft []
+  (centerbox :class "utopie-vleft" :orientation "v"
+    (utopie-vleft-start)
+    ""
+    (utopie-vleft-end)))
+
+(defwidget utopie-vleft-start []
+  (box :class "utopie-vleft-start"
+       :orientation "v"
+       :space-evenly false
+       :halign "center"
+       :valign "start"
+       :spacing 10
+  (utopie-vleft-launchpad)
+  (utopie-vleft-workspaces)))
+
+(defwidget utopie-vleft-end []
+  (box :class "utopie-vleft-end"
+       :orientation "v"
+       :space-evenly false
+       :halign "center"
+       :valign "end"
+       :spacing 10
+  (utopie-vleft-volume)
+  (utopie-vleft-clock)
+  (utopie-vleft-quit)))
+  
+(defpoll utopie-vleft-clock-hour :interval "10s"
+  `~/.config/eww/scripts/clock.sh hour`)
+  
+(defpoll utopie-vleft-clock-min :interval "10s"
+  `~/.config/eww/scripts/clock.sh min`)
+
+(defwidget utopie-vleft-clock []
+  (box :class "utopie-vleft-bg utopie-vleft-clock"
+       :orientation "v"
+       :space-evenly false
+       :halign "center"
+       :valign "end"
+       :spacing 10
+  (label :class "utopie-vleft-clock-hour" :text "${utopie-vleft-clock-hour}")
+  (label :class "utopie-vleft-clock-min" :text "${utopie-vleft-clock-min}")))
+
+ (defwidget utopie-vleft-quit []
+   (button :class "utopie-vleft-icon utopie-vleft-bg utopie-vleft-bg-red"
+           :onclick "hyprctl dispatch quit" "⏻"))
+
+(defwidget utopie-vleft-launchpad []
+  (button :class "utopie-vleft-icon utopie-vleft-bg utopie-vleft-bg-crystal-blue" 
+          :onclick "" "󰀻"))
+
+(defwidget utopie-vleft-volume []
+  (box :space-evenly true
+       :class "utopie-vleft-double-element utopie-vleft-volume"
+       :orientation "v"
+       :halign "center"
+       :valign "start"
+    (label :class "utopie-vleft-icon first green"
+           :text "󰕾")
+    (label :class "second"
+           :text "${volume}%")))
+
+(defwidget utopie-vleft-workspaces []
+  (eventbox :onscroll "bash ~/.config/eww/scripts/set-active-workspace.sh {} ${current-workspace}"
+    (box :space-evenly true
+         :class "utopie-vleft-icon utopie-vleft-bg utopie-vleft-workspaces"
+         :orientation "v"
+         :space-evenly true
+         :halign "center"
+         :valign "end"
+         :spacing 16
+      (for workspace in workspaces
+        (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
+          (box :class "utopie-vleft-workspace ${workspace.id == current-workspace ? "current" : ""}"
+            (label :text "${workspace.name}")))))))
